@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import styled from "styled-components";
 import { useState } from "react";
+import useFollow from '../hooks/useFollow'
 
 const Container = styled.div`
   button {
@@ -48,7 +49,7 @@ const Container = styled.div`
 `
 
 export default function FollowBtn({ userId }) {
-  const [following, setFollowing] = useState(false);
+  /*const [following, setFollowing] = useState(false);
 
   return (
     <Container>
@@ -68,4 +69,25 @@ export default function FollowBtn({ userId }) {
       </button>
     </Container>
   );
+  */
+  const { isFollowing, toggleFollow } = useFollow({ userId })
+
+  return (
+    <Container>
+      <button
+        className={classNames(isFollowing ? 'following' : 'not-following')}
+        onClick={toggleFollow}
+      >
+
+        {isFollowing ? (
+          <div className="follow-text">
+            <span className="follow-text__following">Following</span>
+            <span className="follow-text__unfollow">Unfollow</span>
+          </div>
+        ) : (
+          'Follow'
+        )}
+      </button>
+    </Container>
+  )
 }
